@@ -12,7 +12,6 @@ make install
 cd ..
 rm -rf janet-lang-janet-*
 
-curl -L https://github.com/janet-lang/jpm/tarball/master | tar xz
 git clone --depth 1 https://github.com/janet-lang/jpm
 cd jpm
 PREFIX=$HOME/.local janet bootstrap.janet
@@ -30,6 +29,6 @@ Start server
 
     janet server.janet
 
-## Notes
+List all packages available in jpm
 
-How to use custom title in layout?
+    janet list-packages.janet
