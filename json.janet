@@ -11,4 +11,12 @@
 (print "\nUse os/spawn with jq to get formatted output with unicode characters")
 (def proc (os/spawn ["jq" "." "character.json"] :p {:out :pipe}))
 (print (:read (proc :out) :all))
-(os/proc-wait proc)
+(:wait proc)
+
+(print "\nUse os/spawn with jq on temporary file")
+(with [f (file/temp)]
+  (file/write f (json/encode character))
+  (file/seek f :set 0)
+  (def proc (os/spawn ["jq" "."] :p {:in f :out :pipe}))
+  (print (:read (proc :out) :all))
+  (:wait proc))
