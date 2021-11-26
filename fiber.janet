@@ -17,3 +17,7 @@
 (print "Print yielded values using each")
 (each number (get-fiber)
   (print number))
+
+(print "Print transformed yielded values using map and each")
+(each number (map |(* $0 2) (get-fiber))
+  (print number))
