@@ -1,18 +1,18 @@
 (import utf8)
 
 (defn gen-random-ints [low high]
-  (let [rng (math/rng)
+  (let [rng (math/rng (os/time))
         max (inc (- high low))
         add |(+ $0 low)]
     (generate [_ :iterate true]
       (-> (math/rng-int rng max) add))))
 
-(defn encode [code-point]
-  (utf8/encode [code-point]))
+(def generator (gen-random-ints 0x4e00 0x9fff))
 
-(def gen (gen-random-ints 0x4e00 0x9fff))
+(defn random-hanzi [n]
+  (->> (take n generator)
+    (map |(utf8/encode [$0]))
+    (string/join)))
 
-(for i 0 20
-  (def n (resume gen))
-  (print n)
-  (print (encode n)))
+(for i 1 8
+  (print (random-hanzi i)))
