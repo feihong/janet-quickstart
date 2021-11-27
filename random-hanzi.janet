@@ -10,9 +10,11 @@
 (def generator (gen-random-ints 0x4e00 0x9fff))
 
 (defn random-hanzi [n]
-  (->> (take n generator)
-    (map |(utf8/encode [$0]))
-    (string/join)))
+  (-> (take n generator) utf8/encode))
 
-(for i 1 8
+(def count
+  (let [x (-?> (dyn :args) (get 1) (scan-number))]
+    (if (nil? x) 8 x)))
+
+(for i 1 (inc count)
   (print (random-hanzi i)))
