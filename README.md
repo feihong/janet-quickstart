@@ -19,9 +19,10 @@ cd ..
 rm -rf jpm
 ```
 
-Install joy
+Install dependencies
 
     jpm install joy
+    jpm install utf8
 
 ## Commands
 
